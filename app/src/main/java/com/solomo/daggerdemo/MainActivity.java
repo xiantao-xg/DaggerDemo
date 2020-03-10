@@ -8,12 +8,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.solomo.daggerdemo.base.BaseActivity;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import dagger.android.AndroidInjection;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
   private TextView mTextMessage;
 
   private static final String TAG = MainActivity.class.getSimpleName();
@@ -49,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    //第一步 添加依赖关系
-    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     BottomNavigationView navView = findViewById(R.id.nav_view);
