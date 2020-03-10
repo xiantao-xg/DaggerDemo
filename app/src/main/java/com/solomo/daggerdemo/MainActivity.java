@@ -1,22 +1,32 @@
 package com.solomo.daggerdemo;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.solomo.daggerdemo.base.BaseActivity;
+import com.solomo.daggerdemo.home.HomeFragment;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import dagger.android.AndroidInjection;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener {
   private TextView mTextMessage;
+  private LinearLayout container;
+  private HomeFragment homeFragment;
+  private List<Fragment> fragments;
 
   private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -37,6 +47,7 @@ public class MainActivity extends BaseActivity {
       switch (item.getItemId()) {
         case R.id.navigation_home:
           mTextMessage.setText(R.string.title_home);
+          showFragment(new HomeFragment());
           return true;
         case R.id.navigation_dashboard:
           mTextMessage.setText(R.string.title_dashboard);
@@ -55,6 +66,7 @@ public class MainActivity extends BaseActivity {
     setContentView(R.layout.activity_main);
     BottomNavigationView navView = findViewById(R.id.nav_view);
     mTextMessage = findViewById(R.id.message);
+    container = findViewById(R.id.fragment_container);
     navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
     Log.d(TAG, "first eat");
@@ -63,4 +75,14 @@ public class MainActivity extends BaseActivity {
     badAnimal.eat();
   }
 
+  private void showFragment(Fragment fragment) {
+    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+    transaction.add(R.id.fragment_container, fragment);
+    transaction.commitNowAllowingStateLoss();
+  }
+
+  @Override
+  public void onFragmentInteraction(Uri uri) {
+
+  }
 }

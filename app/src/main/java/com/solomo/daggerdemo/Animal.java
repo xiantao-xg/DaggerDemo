@@ -10,7 +10,7 @@ public class Animal {
     this.food = food;
   }
 
-  void eat() {
+  public void eat() {
     Log.d(TAG, "************************ eat ****************************");
   }
 }
