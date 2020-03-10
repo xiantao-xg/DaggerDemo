@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import dagger.android.AndroidInjection;
 
 public class MainActivity extends AppCompatActivity {
   private TextView mTextMessage;
+
+  private static final String TAG = MainActivity.class.getSimpleName();
 
   // 第二步 使用inject注解，获取到a对象的实力
   @Named("normal animal")
@@ -54,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
     mTextMessage = findViewById(R.id.message);
     navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+    Log.d(TAG, "first eat");
     animal.eat();
+    Log.d(TAG, "second eat");
     badAnimal.eat();
   }
 
